@@ -6,8 +6,13 @@ class UsersController extends Controller
     public function __construct()
     {
         parent::__construct();
-        // Load UsersModel so it is available as $this->UsersModel
-            $this->call->library('database');   
+        $this->call->library('database');
+        $this->call->library('migration');
+
+        ob_start();
+        $this->migration->migrate();
+        ob_end_clean();
+
         $this->call->model('UsersModel');
     }
 
