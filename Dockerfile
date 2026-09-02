@@ -16,5 +16,5 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
 && chmod -R 755 /var/www/html
 # Render provides the web-service port through PORT. Apache must listen on it.
-CMD ["sh", "-c", "PORT=${PORT:-10000}; sed -ri -e \"s/Listen [0-9]+/Listen ${PORT}/\" -e \"s/<VirtualHost \\\\*:[0-9]+>/<VirtualHost *:${PORT}>/\" /etc/apache2/ports.conf /etc/apache2/sites-available/*.conf /etc/apache2/sites-enabled/*.conf; apache2-foreground"]
+CMD ["sh", "-c", "PORT=${PORT:-10000}; sed -ri \"s/Listen 80/Listen ${PORT}/\" /etc/apache2/ports.conf; sed -ri \"s/<VirtualHost \\\\*:80>/<VirtualHost *:${PORT}>/\" /etc/apache2/sites-enabled/000-default.conf; apache2-foreground"]
 EXPOSE 10000
