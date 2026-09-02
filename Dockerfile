@@ -15,5 +15,7 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
 && chmod -R 755 /var/www/html
 # Render provides the web-service port through PORT. Apache must listen on it.
-CMD ["sh", "-c", "PORT=${PORT:-10000}; sed -ri \"s/^Listen .*/Listen ${PORT}/\" /etc/apache2/ports.conf; sed -ri \"s#<VirtualHost [^>]+>#<VirtualHost *:${PORT}>#\" /etc/apache2/sites-available/000-default.conf; exec apache2-foreground"]
+COPY docker-entrypoint.sh /usr/local/bin/render-apache-entrypoint
+RUN chmod +x /usr/local/bin/render-apache-entrypoint
+ENTRYPOINT ["render-apache-entrypoint"]
 EXPOSE 10000
