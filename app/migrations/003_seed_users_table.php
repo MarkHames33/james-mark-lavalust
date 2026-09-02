@@ -13,8 +13,8 @@ class Seed_users_table {
     public function up()
     {
         $this->_lava->db->raw("ALTER TABLE users
-            ADD COLUMN IF NOT EXISTS firstname VARCHAR(100) NOT NULL DEFAULT '' AFTER id,
-            ADD COLUMN IF NOT EXISTS lastname VARCHAR(100) NOT NULL DEFAULT '' AFTER firstname
+            ADD firstname VARCHAR(100) NOT NULL DEFAULT '' AFTER id,
+            ADD lastname VARCHAR(100) NOT NULL DEFAULT '' AFTER firstname
         ");
 
         $this->_lava->db->raw("
