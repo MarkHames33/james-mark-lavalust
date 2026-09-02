@@ -71,5 +71,3 @@ $database['main'] = array(
     'path'      => ''
 );
 
-?>
-
