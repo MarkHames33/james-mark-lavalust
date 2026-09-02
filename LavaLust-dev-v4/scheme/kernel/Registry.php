@@ -6,9 +6,9 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * ------------------------------------------------------------------
  *
  * MIT License
- *
+ * 
  * Copyright (c) 2020 Ronald M. Marasigan
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -34,15 +34,80 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * @license https://opensource.org/licenses/MIT MIT License
  */
 
-/*
-| -------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------
-| Here is where you can register web routes for your application.
-|
-|
-*/
-/** @var object $router **/
+/**
+* ------------------------------------------------------
+*  Class Performance
+* ------------------------------------------------------
+ */
+class Registry
+{
+    /**
+     * Class name arrays
+     *
+     * @var array
+     */
+	private $_classes = array();
 
-$router->get('/', 'UsersController::index');
-$router->get('/users', 'UsersController::index');
+    /**
+     * Instance
+     *
+     * @var object
+     */
+	private static $_instance;
+	
+    /**
+     * Get Instance of Registry
+     */
+    public static function instance()
+    {
+    	if(!isset(self::$_instance))
+        {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * Get
+     * @param string $key
+     * @return mixed
+     */
+    protected function get($key)
+    {
+    	
+        if(isset($this->_classes[$key]))
+        {	
+            return $this->_classes[$key];
+        }
+        return NULL;
+    }
+
+    /**
+     * @param string $key
+     * @param object $object
+     * @return void
+     */
+    protected function set($key, $object)
+    {
+        $this->_classes[$key] = $object;
+    }
+
+    /**
+     * @param string $key
+     * @return object
+     */
+    static function get_object($key)
+    {
+		return self::instance()->get($key);
+	}
+
+    /**
+     * @param string $key
+     * @param object $object
+     * @return object
+     */
+	static function store_object($key, $object)
+	{
+		return self::instance()->set($key, $object);
+	}
+}

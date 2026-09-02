@@ -34,15 +34,39 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * @license https://opensource.org/licenses/MIT MIT License
  */
 
-/*
-| -------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------
-| Here is where you can register web routes for your application.
-|
-|
-*/
-/** @var object $router **/
+if ( ! function_exists('lang'))
+{
+	/**
+	 * Use to translate text on you app in different languages
+	 *
+	 * @param string $key
+	 * @param array $params
+	 * @param boolean $escape
+	 * @return string
+	 */
+	function lang($key, $params = array(), $escape = FALSE)
+	{
+		$translated = lava_instance()->lang->translate($key, $params);
 
-$router->get('/', 'UsersController::index');
-$router->get('/users', 'UsersController::index');
+		if($escape == TRUE)
+			return html_escape($translated);
+		else
+			return $translated;
+	}
+}
+
+if ( ! function_exists('language'))
+{
+    /**
+     * Use to select the Language to use
+     *
+     * @param  string $lang
+     * @return object
+     */
+	function language($lang)
+	{
+		return lava_instance()->lang->language($lang);
+	}
+}
+
+?>

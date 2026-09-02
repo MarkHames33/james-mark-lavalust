@@ -29,20 +29,41 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  *
  * @package LavaLust
  * @author Ronald M. Marasigan <ronald.marasigan@yahoo.com>
- * @since Version 1
+ * @since Version 4
  * @link https://github.com/ronmarasigan/LavaLust
  * @license https://opensource.org/licenses/MIT MIT License
  */
 
 /*
-| -------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------
-| Here is where you can register web routes for your application.
+|--------------------------------------------------------------------------
+| Enable/Disable Migrations
+|--------------------------------------------------------------------------
 |
+| Migrations are disabled by default for security reasons.
+| You should enable migrations whenever you intend to do a schema migration
+| and disable it back when you're done.
 |
 */
-/** @var object $router **/
+$config['migration_enabled'] = FALSE;
 
-$router->get('/', 'UsersController::index');
-$router->get('/users', 'UsersController::index');
+/*
+|--------------------------------------------------------------------------
+| Migrations table
+|--------------------------------------------------------------------------
+|
+| This is the name of the table that will store the current migrations state.
+|
+*/
+$config['migration_table'] = 'migrations';
+
+/*
+|--------------------------------------------------------------------------
+| Migrations Path
+|--------------------------------------------------------------------------
+|
+| Path to your migrations folder.
+| Typically, it will be within your application path.
+| Also, writing permission is required within the migrations path.
+|
+*/
+$config['migration_path'] = APP_DIR.'migrations/';
